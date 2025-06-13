@@ -5,8 +5,10 @@
   gap: 10px;
 }
 .card {
-  width: 300px;
+  width: 120px;
   background-color: var(--color-secondary);
+  border-radius: 10px;
+  box-shadow: 0 5px 5px 0 rgba(0,0,0,0.1), inset 0 0 5px 0 plum;
 }
 
 .card__info {
@@ -25,4 +27,17 @@
 
 li {
   list-style: none;
+}
+
+.card img {
+  width: 120px;
+  border-radius: 10px;
+}
+
+.card__title {
+  font-size: xx-small;
+}
+
+.card dl {
+  font-size: 6px;
 }
