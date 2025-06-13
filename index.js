@@ -1,8 +1,8 @@
-
 import { fetchData } from "./components/Fetch/fetch.js";
 
-import createCharacterCard,  { fakeData } from "./components/CharacterCard/CharacterCard.js";
-
+import createCharacterCard, {
+  fakeData,
+} from "./components/CharacterCard/CharacterCard.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
@@ -19,10 +19,12 @@ const maxPage = 1;
 const page = 1;
 const searchQuery = "";
 
-
 const data = await fetchData();
 
 //// Logic
-
-cardContainer.append(createCharacterCard(fakeData))
-
+const cardAmountToDisplay = 20;
+let index = 0;
+while (index < cardAmountToDisplay) {
+  index++;
+  cardContainer.append(createCharacterCard(data[index]));
+}
