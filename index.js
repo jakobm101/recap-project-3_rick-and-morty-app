@@ -1,4 +1,4 @@
-import createCharacterCard from "./components/CharacterCard/CharacterCard.js";
+import createCharacterCard,  { fakeData } from "./components/CharacterCard/CharacterCard.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
@@ -17,4 +17,4 @@ const searchQuery = "";
 
 //// Logic
 
-cardContainer.append(createCharacterCard())
+cardContainer.append(createCharacterCard(fakeData))
