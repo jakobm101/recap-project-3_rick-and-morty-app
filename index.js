@@ -1,4 +1,8 @@
+
 import { fetchData } from "./components/Fetch/fetch.js";
+
+import createCharacterCard,  { fakeData } from "./components/CharacterCard/CharacterCard.js";
+
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
@@ -15,4 +19,10 @@ const maxPage = 1;
 const page = 1;
 const searchQuery = "";
 
+
 const data = await fetchData();
+
+//// Logic
+
+cardContainer.append(createCharacterCard(fakeData))
+
