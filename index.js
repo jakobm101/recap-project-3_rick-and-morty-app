@@ -24,5 +24,5 @@ const data = await fetchData();
 
 //// Logic
 
-cardContainer.append(createCharacterCard(fakeData))
+cardContainer.append(createCharacterCard(data[3]))
 
