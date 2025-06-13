@@ -15,4 +15,4 @@ const maxPage = 1;
 const page = 1;
 const searchQuery = "";
 
-const data = fetchData();
+const data = await fetchData();
