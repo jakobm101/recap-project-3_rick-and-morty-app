@@ -28,9 +28,9 @@ const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 //Loads the initial data. I've amended the fetch logic so you will get back everything.
 //This means that you can access the pagination object(info) as well. As shown below.
-const fetchedData = await fetchData();
-console.log(fetchedData.results); // I've logged it but here we should call the create card function
-console.log(fetchedData.info); // Pagination info
+let fetchedData = await fetchData();
+// console.log(fetchedData.results); // I've logged it but here we should call the create card function
+// console.log(fetchedData.info); // Pagination info
 
 //Call our form creator and where to put it (searchContainer)
 const { searchForm, input } = createSearchForm(searchContainer);
@@ -53,4 +53,21 @@ searchListener(searchForm, input, async (searchQuery) => {
   }
 });
 
-main.append(createCards(fetchedData));
+main.append(createCards(fetchedData.results));
+
+/////////////////////////////////
+//pagination
+const pageTurn = async (next) => {
+  const fetching = await fetchData(fetchedData.info.next);
+  main.innerHTML = "";
+  main.append(createCards(fetching.results));
+  fetchedData = fetching;
+};
+
+nextButton.addEventListener("click", pageTurn)
+// nextButton.addEventListener("click", async () => {
+//   const fetching = await fetchData(fetchedData.info.next);
+//   main.innerHTML = ""
+//   main.append(createCards(fetching.results))
+//   fetchedData = fetching
+// });
