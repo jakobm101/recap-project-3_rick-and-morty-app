@@ -58,16 +58,20 @@ main.append(createCards(fetchedData.results));
 /////////////////////////////////
 //pagination
 const pageTurn = async (next) => {
-  const fetching = await fetchData(fetchedData.info.next);
-  main.innerHTML = "";
-  main.append(createCards(fetching.results));
-  fetchedData = fetching;
+  let fetching;
+  try {
+    fetching = await fetchData(next);
+  } catch (error) {
+    log.error(error);
+  }
+  if (typeof fetching === "object") {
+    main.innerHTML = "";
+    main.append(createCards(fetching.results));
+  } else {
+    alert("no more pages");
+  }
+  return fetching
 };
 
-nextButton.addEventListener("click", pageTurn)
-// nextButton.addEventListener("click", async () => {
-//   const fetching = await fetchData(fetchedData.info.next);
-//   main.innerHTML = ""
-//   main.append(createCards(fetching.results))
-//   fetchedData = fetching
-// });
+nextButton.addEventListener("click", async () => fetchedData = await pageTurn(fetchedData.info.next));
+prevButton.addEventListener("click", async () => fetchedData = await pageTurn(fetchedData.info.prev));
