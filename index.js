@@ -1,3 +1,4 @@
+import { pageTurn } from "./components/NavPagination/NavPagination.js";
 import { fetchData } from "./components/Fetch/fetch.js";
 import {
   createSearchForm,
@@ -54,24 +55,11 @@ searchListener(searchForm, input, async (searchQuery) => {
 });
 
 main.append(createCards(fetchedData.results));
-
-/////////////////////////////////
-//pagination
-const pageTurn = async (next) => {
-  let fetching;
-  try {
-    fetching = await fetchData(next);
-  } catch (error) {
-    log.error(error);
-  }
-  if (typeof fetching === "object") {
-    main.innerHTML = "";
-    main.append(createCards(fetching.results));
-  } else {
-    alert("no more pages");
-  }
-  return fetching
-};
-
-nextButton.addEventListener("click", async () => fetchedData = await pageTurn(fetchedData.info.next));
-prevButton.addEventListener("click", async () => fetchedData = await pageTurn(fetchedData.info.prev));
+nextButton.addEventListener(
+  "click",
+  async () => (fetchedData = await pageTurn(fetchedData.info.next))
+);
+prevButton.addEventListener(
+  "click",
+  async () => (fetchedData = await pageTurn(fetchedData.info.prev))
+);
