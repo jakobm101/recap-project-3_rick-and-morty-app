@@ -1,3 +1,5 @@
+//////////////////////
+// Imports
 import { pageTurn } from "./components/NavPagination/NavPagination.js";
 import { fetchData } from "./components/Fetch/fetch.js";
 import {
@@ -6,13 +8,25 @@ import {
 } from "./components/SearchBar/SearchBar.js";
 import createCards from "./components/CharacterCard/CharacterCard.js";
 
+//////////////////////
+// Variables
+
+// html selectors
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const main = document.querySelector("main");
+const navigation = document.querySelector('[data-js="navigation"]');
+const prevButton = document.querySelector('[data-js="button-prev"]');
+const nextButton = document.querySelector('[data-js="button-next"]');
+const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
 const maxPage = 1;
 const page = 1;
 const searchQuery = "";
+let fetchedData = await fetchData();
+
+//////////////////////
+// Search
 
 //Main container for our form
 const searchContainer = document.querySelector("header");
@@ -21,14 +35,6 @@ searchContainer.setAttribute("data-js", "search-bar-container");
 
 const searchError = document.createElement("p"); //Error container. Classes can be added for styling etc...
 let searchData;
-
-// navigation
-const navigation = document.querySelector('[data-js="navigation"]');
-const prevButton = document.querySelector('[data-js="button-prev"]');
-const nextButton = document.querySelector('[data-js="button-next"]');
-const pagination = document.querySelector('[data-js="pagination"]');
-
-let fetchedData = await fetchData();
 
 //Call our form creator and where to put it (searchContainer)
 const { searchForm, input } = createSearchForm(searchContainer);
@@ -42,7 +48,7 @@ searchListener(searchForm, input, async (searchQuery) => {
     )}`
   );
 
- //Here we handle if there are no characters returned from the API
+  //Here we handle if there are no characters returned from the API
   if (searchData.name === "Error") {
     searchError.textContent = searchData.message;
     searchContainer.append(searchError);
@@ -51,10 +57,13 @@ searchListener(searchForm, input, async (searchQuery) => {
   }
 });
 
+//////////////////////
+// PAGINATION 
+
 // initialize pagination and cards
 pageTurn();
 
-//add button functionality
+// add button functionality
 nextButton.addEventListener(
   "click",
   async () => (fetchedData = await pageTurn(fetchedData.info.next))
