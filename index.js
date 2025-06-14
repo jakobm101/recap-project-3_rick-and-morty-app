@@ -1,10 +1,17 @@
 import { fetchData } from "./components/Fetch/fetch.js";
-import { createSearchForm, searchListener } from "./search.js";
-import createCharacterCard, {
-  fakeData,
-} from "./components/CharacterCard/CharacterCard.js";
+import {
+  createSearchForm,
+  searchListener,
+} from "./components/SearchBar/SearchBar.js";
+import createCards from "./components/CharacterCard/CharacterCard.js";
 
-const cardContainer = document.querySelector('[data-js="card-container"]');
+// const cardContainer = document.querySelector('[data-js="card-container"]');
+const main = document.querySelector("main");
+
+// States
+const maxPage = 1;
+const page = 1;
+const searchQuery = "";
 
 //Main container for our form
 const searchContainer = document.querySelector("header");
@@ -19,12 +26,6 @@ const navigation = document.querySelector('[data-js="navigation"]');
 const prevButton = document.querySelector('[data-js="button-prev"]');
 const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
-
-// States
-const maxPage = 1;
-const page = 1;
-const searchQuery = "";
-
 //Loads the initial data. I've amended the fetch logic so you will get back everything.
 //This means that you can access the pagination object(info) as well. As shown below.
 const fetchedData = await fetchData();
@@ -35,7 +36,7 @@ console.log(fetchedData.info); // Pagination info
 const { searchForm, input } = createSearchForm(searchContainer);
 
 //This the listener for the search form
-searchListener(searchForm, input, async searchQuery => {
+searchListener(searchForm, input, async (searchQuery) => {
   if (!searchQuery) return;
   searchData = await fetchData(
     `https://rickandmortyapi.com/api/character/?name=${encodeURIComponent(
@@ -52,4 +53,4 @@ searchListener(searchForm, input, async searchQuery => {
   }
 });
 
-cardContainer.append(createCharacterCard(fakeData));
+main.append(createCards(fetchedData));
