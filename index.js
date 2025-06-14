@@ -1,17 +1,28 @@
+//////////////////////
+// Imports
+import { pageTurn } from "./components/NavPagination/NavPagination.js";
 import { fetchData } from "./components/Fetch/fetch.js";
 import {
   createSearchForm,
   searchListener,
 } from "./components/SearchBar/SearchBar.js";
-import createCards from "./components/CharacterCard/CharacterCard.js";
 
-// const cardContainer = document.querySelector('[data-js="card-container"]');
+//////////////////////
+// Variables
+
+// html selectors
 const main = document.querySelector("main");
+const prevButton = document.querySelector('[data-js="button-prev"]');
+const nextButton = document.querySelector('[data-js="button-next"]');
 
 // States
 const maxPage = 1;
 const page = 1;
 const searchQuery = "";
+let fetchedData = await fetchData();
+
+//////////////////////
+// Search
 
 //Main container for our form
 const searchContainer = document.querySelector("header");
@@ -19,18 +30,7 @@ searchContainer.classList.add("search-bar-container");
 searchContainer.setAttribute("data-js", "search-bar-container");
 
 const searchError = document.createElement("p"); //Error container. Classes can be added for styling etc...
-
 let searchData;
-
-const navigation = document.querySelector('[data-js="navigation"]');
-const prevButton = document.querySelector('[data-js="button-prev"]');
-const nextButton = document.querySelector('[data-js="button-next"]');
-const pagination = document.querySelector('[data-js="pagination"]');
-//Loads the initial data. I've amended the fetch logic so you will get back everything.
-//This means that you can access the pagination object(info) as well. As shown below.
-const fetchedData = await fetchData();
-console.log(fetchedData.results); // I've logged it but here we should call the create card function
-console.log(fetchedData.info); // Pagination info
 
 //Call our form creator and where to put it (searchContainer)
 const { searchForm, input } = createSearchForm(searchContainer);
@@ -53,4 +53,18 @@ searchListener(searchForm, input, async (searchQuery) => {
   }
 });
 
-main.append(createCards(fetchedData));
+//////////////////////
+// PAGINATION 
+
+// initialize pagination and cards
+pageTurn();
+
+// add button functionality
+nextButton.addEventListener(
+  "click",
+  async () => (fetchedData = await pageTurn(fetchedData.info.next))
+);
+prevButton.addEventListener(
+  "click",
+  async () => (fetchedData = await pageTurn(fetchedData.info.prev))
+);
