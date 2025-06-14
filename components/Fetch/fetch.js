@@ -1,4 +1,4 @@
-const URL = `https://rickandmortyapi.com/api/character`;
+export const URL = `https://rickandmortyapi.com/api/character`;
 
 export const fetchData = async (newURL = URL) => {
   try {

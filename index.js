@@ -54,7 +54,7 @@ searchListener(searchForm, input, async (searchQuery) => {
   }
 });
 
-main.append(createCards(fetchedData.results));
+pageTurn();
 nextButton.addEventListener(
   "click",
   async () => (fetchedData = await pageTurn(fetchedData.info.next))
@@ -63,5 +63,3 @@ prevButton.addEventListener(
   "click",
   async () => (fetchedData = await pageTurn(fetchedData.info.prev))
 );
-
-console.log(fetchedData.info);
