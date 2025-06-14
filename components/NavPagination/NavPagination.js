@@ -4,16 +4,9 @@ const pagination = document.querySelector('[data-js="pagination"]');
 const main = document.querySelector("main");
 
 export const pageTurn = async (next) => {
-  if (next === null) {
-    console.log("next ist null");
-  }
   let fetching;
+  fetching = await fetchData(next);
 
-  try {
-    fetching = await fetchData(next);
-  } catch (error) {
-    log.error(error);
-  }
   // fallback if the new page does not exist
   if (typeof fetching.results !== "object") {
     fetching = await fetchData();
