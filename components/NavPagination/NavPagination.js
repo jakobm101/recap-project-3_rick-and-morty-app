@@ -14,6 +14,6 @@ export const pageTurn = async (next = URL) => {
 
   main.innerHTML = "";
   main.append(createCards(fetching.results));
-  pagination.textContent = `${currentPage}/${fetching.info.pages}`;
+  pagination.textContent = `${currentPage}／${fetching.info.pages}`;
   return fetching;
 };

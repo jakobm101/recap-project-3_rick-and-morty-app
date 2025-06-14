@@ -7,22 +7,48 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: all 0.4s ease-in-out;
 }
 
 :root {
   --color-primary: rgb(51, 51, 51);
-  --color-secondary: #f6f6f6;
+  --color-secondary: #ecdab0;
+  --color-tertiary: #d9d7ae;
   --font-family: system-ui;
-  --color-accent: palevioletred;
+  --color-accent: #c9e870;
+  --color-pink: #dc6cc7;
+  --color-pink-dark: #9285a4;
   --width-max: 1000px;
 }
 
 body {
   font-family: var(--font-family);
-  color: var(--color-primary);
+  background-color: #eeeeee;
+  background-color: var(--color-tertiary);
   padding: 20px;
-  box-shadow: inset 0 0 2rem 0 var(--color-accent);
+  box-shadow: inset 0 0 4rem 0 var(--color-accent);
   min-height: 100vh;
+}
+
+.bg-grid {
+  overflow: hidden; 
+  background-image:
+     linear-gradient(
+      to right,
+      var(--color-accent) 1px,
+      transparent 1px
+    ),
+      linear-gradient(
+        to bottom,
+        var(--color-accent) 1px,
+        transparent 1px
+      );
+
+  /* Set the spacing for the grid cells */
+  background-size: 10px 10px;
+
+  /* Fix background to viewport, not content */
+  background-attachment: fixed;
 }
 
 main {

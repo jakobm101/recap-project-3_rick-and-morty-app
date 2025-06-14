@@ -1,5 +1,6 @@
 .button {
   border: none;
+  background-color: var(--color-tertiary);
 }
 
 .button:hover {
