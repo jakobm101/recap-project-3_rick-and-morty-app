@@ -64,5 +64,4 @@ prevButton.addEventListener(
   async () => (fetchedData = await pageTurn(fetchedData.info.prev))
 );
 
-
 console.log(fetchedData.info);

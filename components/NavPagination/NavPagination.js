@@ -4,16 +4,13 @@ const pagination = document.querySelector('[data-js="pagination"]');
 const main = document.querySelector("main");
 
 export const pageTurn = async (next) => {
-  let fetching;
-  fetching = await fetchData(next);
+  let fetching = await fetchData(next);
 
   // fallback if the new page does not exist
-  if (typeof fetching.results !== "object") {
-    fetching = await fetchData();
-  } else {
-    main.innerHTML = "";
-    main.append(createCards(fetching.results));
-    pagination.textContent = `${fetching.info.pages}`;
-    return fetching;
-  }
+  if (typeof fetching.results !== "object") fetching = await fetchData();
+
+  main.innerHTML = "";
+  main.append(createCards(fetching.results));
+  pagination.textContent = `${fetching.info.pages}`;
+  return fetching;
 };
