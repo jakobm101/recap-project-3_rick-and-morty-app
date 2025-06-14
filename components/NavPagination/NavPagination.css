@@ -2,9 +2,32 @@
   height: 30px;
   display: grid;
   grid-template-columns: 100px 100px 100px;
+  max-width: var(--width-max);
+  width: fit-content;
+  height: 55px;
+  margin: auto;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.03);
+  box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.03);
 }
 
 .navigation__pagination {
   display: grid;
   place-items: center;
+  color: #777777
+  
+}
+
+.button {
+  padding: 10px 10px 25px 10px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px 0 var(--color-accent),
+    0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  height: 30px;
+  letter-spacing: 0.6px;
 }
