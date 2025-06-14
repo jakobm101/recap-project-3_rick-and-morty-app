@@ -4,6 +4,9 @@ const pagination = document.querySelector('[data-js="pagination"]');
 const main = document.querySelector("main");
 
 export const pageTurn = async (next) => {
+  let currentPage = next.split('=')[1]
+  console.log(typeof next);
+  
   let fetching = await fetchData(next);
 
   // fallback if the new page does not exist
@@ -11,6 +14,6 @@ export const pageTurn = async (next) => {
 
   main.innerHTML = "";
   main.append(createCards(fetching.results));
-  pagination.textContent = `${fetching.info.pages}`;
+  pagination.textContent = `${currentPage}/${fetching.info.pages}`;
   return fetching;
 };
