@@ -6,7 +6,7 @@ import {
 } from "./components/SearchBar/SearchBar.js";
 import createCards from "./components/CharacterCard/CharacterCard.js";
 
-// const cardContainer = document.querySelector('[data-js="card-container"]');
+const cardContainer = document.querySelector('[data-js="card-container"]');
 const main = document.querySelector("main");
 
 // States
@@ -20,18 +20,15 @@ searchContainer.classList.add("search-bar-container");
 searchContainer.setAttribute("data-js", "search-bar-container");
 
 const searchError = document.createElement("p"); //Error container. Classes can be added for styling etc...
-
 let searchData;
 
+// navigation
 const navigation = document.querySelector('[data-js="navigation"]');
 const prevButton = document.querySelector('[data-js="button-prev"]');
 const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
-//Loads the initial data. I've amended the fetch logic so you will get back everything.
-//This means that you can access the pagination object(info) as well. As shown below.
+
 let fetchedData = await fetchData();
-// console.log(fetchedData.results); // I've logged it but here we should call the create card function
-// console.log(fetchedData.info); // Pagination info
 
 //Call our form creator and where to put it (searchContainer)
 const { searchForm, input } = createSearchForm(searchContainer);
@@ -45,7 +42,7 @@ searchListener(searchForm, input, async (searchQuery) => {
     )}`
   );
 
-  //Here we handle if there are no characters returned from the API
+ //Here we handle if there are no characters returned from the API
   if (searchData.name === "Error") {
     searchError.textContent = searchData.message;
     searchContainer.append(searchError);
@@ -54,7 +51,10 @@ searchListener(searchForm, input, async (searchQuery) => {
   }
 });
 
+// initialize pagination and cards
 pageTurn();
+
+//add button functionality
 nextButton.addEventListener(
   "click",
   async () => (fetchedData = await pageTurn(fetchedData.info.next))
