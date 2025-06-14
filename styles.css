@@ -13,7 +13,8 @@
   --color-primary: rgb(51, 51, 51);
   --color-secondary: #f6f6f6;
   --font-family: system-ui;
-  --color-accent: palevioletred
+  --color-accent: palevioletred;
+  --width-max: 1000px;
 }
 
 body {
@@ -28,8 +29,12 @@ main {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-width: var(--width-max);
+  margin: auto;
 }
 
 .title {
   padding: 10px 0;
+  max-width: var(--width-max);
+  margin: auto;
 }
