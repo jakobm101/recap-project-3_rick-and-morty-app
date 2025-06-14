@@ -31,7 +31,6 @@ body {
 }
 
 .bg-grid {
-  overflow: hidden; 
   background-image:
      linear-gradient(
       to right,
