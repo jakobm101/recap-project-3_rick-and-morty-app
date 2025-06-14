@@ -24,7 +24,7 @@ const data = await fetchData();
 //// Logic
 const cardAmountToDisplay = 20;
 let index = 0;
-while (index < cardAmountToDisplay) {
-  index++;
+while (index <= cardAmountToDisplay) {
   cardContainer.append(createCharacterCard(data[index]));
+  index++;
 }
