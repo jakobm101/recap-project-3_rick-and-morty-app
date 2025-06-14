@@ -37,4 +37,15 @@ main {
   padding: 10px 0;
   max-width: var(--width-max);
   margin: auto;
+  text-transform: uppercase;
+  font-size: large;
+  line-height: 0.8;
+}
+
+header {
+  max-width: var(--width-max);
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
