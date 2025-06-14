@@ -3,11 +3,10 @@ import {
   createSearchForm,
   searchListener,
 } from "./components/SearchBar/SearchBar.js";
-import createCharacterCard, {
-  fakeData,
-} from "./components/CharacterCard/CharacterCard.js";
+import createCards from "./components/CharacterCard/CharacterCard.js";
 
-const cardContainer = document.querySelector('[data-js="card-container"]');
+// const cardContainer = document.querySelector('[data-js="card-container"]');
+const main = document.querySelector("main");
 
 // States
 const maxPage = 1;
@@ -54,5 +53,4 @@ searchListener(searchForm, input, async (searchQuery) => {
   }
 });
 
-for (const person of fetchedData)
-  cardContainer.append(createCharacterCard(person));
+main.append(createCards(fetchedData));
