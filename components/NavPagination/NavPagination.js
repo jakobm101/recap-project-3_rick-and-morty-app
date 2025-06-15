@@ -1,19 +1,26 @@
-import { fetchData, URL } from "../Fetch/fetch.js";
+import { fetchData } from "../Fetch/fetch.js";
 import createCards from "../CharacterCard/CharacterCard.js";
+
 const pagination = document.querySelector('[data-js="pagination"]');
 const main = document.querySelector("main");
 
-export const pageTurn = async (next = URL) => {
-  let currentPage = next?.split('=')[1] || "1"
+export async function pageTurn(nextUrl, searchQuery, pageNumber) {
+  let data;
 
-  
-  let fetching = await fetchData(next);
-
-  // fallback if the new page does not exist
-  if (typeof fetching !== "object") fetching = await fetchData();
+  if (nextUrl) {
+    data = await (await fetch(nextUrl)).json();
+  } else {
+    data = await fetchData(pageNumber, searchQuery);
+  }
 
   main.innerHTML = "";
-  main.append(createCards(fetching.results));
-  pagination.textContent = `${currentPage}／${fetching.info.pages}`;
-  return fetching;
-};
+  main.append(createCards(data.results));
+
+  const current = nextUrl
+    ? new URL(nextUrl).searchParams.get("page")
+    : pageNumber;
+
+  pagination.textContent = `${current}/${data.info.pages}`;
+
+  return data;
+}
