@@ -36,7 +36,7 @@ let searchData;
 const { searchForm, input } = createSearchForm(searchContainer);
 
 //This the listener for the search form
-searchListener(searchForm, input, async (searchQuery) => {
+searchListener(searchForm, input, async searchQuery => {
   if (!searchQuery) return;
   searchData = await fetchData(
     `https://rickandmortyapi.com/api/character/?name=${encodeURIComponent(
