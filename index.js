@@ -2,10 +2,7 @@
 // Imports
 import { pageRender } from "./components/NavPagination/NavPagination.js";
 import { fetchData } from "./components/Fetch/fetch.js";
-import {
-  createSearchForm,
-  searchListener,
-} from "./components/SearchBar/SearchBar.js";
+import { createSearchForm } from "./components/SearchBar/SearchBar.js";
 
 //////////////////////
 // Variables
@@ -30,22 +27,26 @@ searchContainer.classList.add("search-bar-container");
 searchContainer.setAttribute("data-js", "search-bar-container");
 
 const searchError = document.createElement("p"); //Error container. Classes can be added for styling etc...
-let searchData;
 
 //Call our form creator and where to put it (searchContainer)
 const { searchForm, input, resetButton } = createSearchForm(searchContainer);
+let searchData;
 
 //This the listener for the search form
-searchListener(searchForm, input, async searchQuery => {
-  if (!searchQuery) return;
+searchForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  let searchQuery = input.value;
+  input.value = "";
 
-  searchData = await fetchData(
-    `https://rickandmortyapi.com/api/character/?name=${encodeURIComponent(
-      searchQuery
-    )}`
-  );
+  if (searchQuery) {
+    searchData = await fetchData(
+      `https://rickandmortyapi.com/api/character/?name=${encodeURIComponent(
+        searchQuery
+      )}`
+    );
+  }
 
-  //Here we handle if there are no characters returned from the API
+  //   //Here we handle if there are no characters returned from the API
   if (searchData.error) {
     searchError.textContent = searchData.error;
     searchContainer.append(searchError);
@@ -55,6 +56,20 @@ searchListener(searchForm, input, async searchQuery => {
     // to make the rest of the code, aka the page buttons,  work with the new data:
     fetchedData = searchData;
   }
+});
+
+// Add reset button listener
+resetButton.addEventListener("click", async event => {
+  event.preventDefault(); // Prevent default button behavior
+
+  // Clear input and remove error if it exists
+  input.value = "";
+  if (searchError.textContent) searchError.remove();
+
+  // Fetch and show the full character list again
+  searchData = await fetchData(`https://rickandmortyapi.com/api/character/`);
+  pageRender(searchData, null, searchData);
+  fetchedData = searchData;
 });
 
 //////////////////////

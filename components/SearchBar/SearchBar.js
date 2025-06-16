@@ -1,7 +1,4 @@
-import { fetchData } from "../Fetch/fetch.js";
-
 //This code creates a form into the header.
-//This includes the listener logic. The only way to handle this was with a callback function.
 
 export const createSearchForm = searchContainer => {
   const section = document.createElement("section");
@@ -28,14 +25,5 @@ export const createSearchForm = searchContainer => {
   section.append(searchForm);
   searchContainer.append(section);
 
-  return { searchForm, input };
-};
-
-//Listener taking in arguments of form, input and the callback function
-export const searchListener = async (searchForm, input, callBackFunction) => {
-  searchForm.addEventListener("submit", event => {
-    event.preventDefault();
-    callBackFunction(input.value);
-    input.value = "";
-  });
+  return { searchForm, input, resetButton };
 };
