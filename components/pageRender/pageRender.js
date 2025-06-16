@@ -34,5 +34,6 @@ export const pageRender = async (currentData, isSearch, prevOrNext) => {
     // RETURN
     return data;
   }
+  // Return previous data if not updating page, so index functions keep the state
   return currentData;
 };
