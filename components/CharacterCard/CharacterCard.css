@@ -13,7 +13,7 @@
   border-radius: 10px;
   box-shadow: 0 5px 5px 0 var(--color-pink-dark),
     inset 0 0 5px 0 var(--color-pink);
-  transition: transform 1s ease-in-out;
+  transition: transform 0.07s ease-in-out;
 }
 
 .card:hover {
