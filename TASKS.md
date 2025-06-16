@@ -1,11 +1,12 @@
 # primary
 - [ ] search 
-  - [ ] search style
-  - [ ] search pagination: page turns for search
+  - [x] search style
+  - [x] search pagination: page turns for search
+    - [ ] search paginaton: page name mess 
   - [ ] disappearing "nothing found message" / search
 
 # feature
-- [ ] buttons style: disabled
+- [o] buttons style: disabled
 - [ ] zoom into selected card
 - [ ] loading signifier before fetch succeeds
 
