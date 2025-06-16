@@ -11,33 +11,29 @@ export const pageRender = async (currentData, isSearch, prevOrNext) => {
   if (prevOrNext === "next") pageToRender = currentData.info.next;
   if (prevOrNext === "prev") pageToRender = currentData.info.prev;
 
-  // fetch data if no data received
-  let fetching;
-  if (!isSearch && pageToRender) fetching = await fetchData(pageToRender);
-  if (isSearch) {
-    fetching = currentData;
-  }
+  // fetch data if not searching
+  let data = isSearch ? currentData : await fetchData(pageToRender);
 
   //create cards
-  if (typeof fetching === "object") {
+  if (typeof data === "object") {
     main.innerHTML = "";
-    main.append(createCards(fetching.results));
+    main.append(createCards(data.results));
 
     // Disable Buttons if no next or previous page available
-    fetching.info.prev
+    data.info.prev
       ? (prevButton.disabled = false)
       : (prevButton.disabled = true);
-    fetching.info.next
+    data.info.next
       ? (nextButton.disabled = false)
       : (nextButton.disabled = true);
 
     // insert Page numbers
     const match = pageToRender?.match(/[?&]page=(\d+)/);
     const currentPage = match ? parseInt(match[1]) : 1;
-    pagination.textContent = `${currentPage}／${fetching.info.pages}`;
+    pagination.textContent = `${currentPage}／${data.info.pages}`;
 
     // RETURN
-    return fetching;
+    return data;
   }
   return currentData;
 };
