@@ -9,9 +9,10 @@ const nextButton = document.querySelector('[data-js="button-next"]');
 export const pageRender = async (data = null, pageToRender = URL, oldData) => {
   // data is coming from search in index.js and fetches there
   // pageToRender is coming from index but fetches here
-  let currentPage = pageToRender?.split("=")[1] || "1";
   // the fetch is actually coming from the module not from index
-  // but now i need to add data
+  const match = pageToRender?.match(/[?&]page=(\d+)/);
+  const currentPage = match ? parseInt(match[1],) : 1;
+
 
   let fetching;
   if (!data && pageToRender) fetching = await fetchData(pageToRender);
