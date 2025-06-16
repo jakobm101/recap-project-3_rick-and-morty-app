@@ -33,12 +33,11 @@ const searchError = document.createElement("p"); //Error container. Classes can 
 let searchData;
 
 //Call our form creator and where to put it (searchContainer)
-const { searchForm, input } = createSearchForm(searchContainer);
+const { searchForm, input, resetButton } = createSearchForm(searchContainer);
 
 //This the listener for the search form
 searchListener(searchForm, input, async searchQuery => {
   if (!searchQuery) return;
-  console.log("listener");
 
   searchData = await fetchData(
     `https://rickandmortyapi.com/api/character/?name=${encodeURIComponent(

@@ -30,7 +30,8 @@
   color: var(--color-primary);
 }
 
-.search-bar__button {
+.search-bar__button,
+.search-reset__button {
   font-size: 10px;
   letter-spacing: 0.5px;
   box-shadow: inset 0 -1px 3px 0 var(--color-pink),
@@ -41,12 +42,12 @@
   padding: 5px 10px;
   margin: 5px;
   border-radius: 6px;
-
 }
 
-.search-bar__button:hover {
-    background-color: var(--color-secondary);
-  }
+.search-bar__button:hover,
+.search-reset__button:hover {
+  background-color: var(--color-secondary);
+}
 
 .search-bar__input:focus {
   outline: none;

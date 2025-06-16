@@ -1,3 +1,5 @@
+import { fetchData } from "../Fetch/fetch.js";
+
 //This code creates a form into the header.
 //This includes the listener logic. The only way to handle this was with a callback function.
 
@@ -16,9 +18,13 @@ export const createSearchForm = searchContainer => {
   button.classList.add("search-bar__button");
   button.setAttribute("aria-label", "search for character");
   button.textContent = "Submit";
+  const resetButton = document.createElement("button");
+  resetButton.classList.add("search-reset__button");
+  resetButton.setAttribute("aria-label", "reset characters");
+  resetButton.textContent = "Reset";
 
-  searchForm.append(input);
-  searchForm.append(button);
+  searchForm.append(input, button, resetButton);
+
   section.append(searchForm);
   searchContainer.append(section);
 
