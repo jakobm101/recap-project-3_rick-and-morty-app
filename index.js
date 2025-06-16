@@ -11,14 +11,10 @@ import {
 // Variables
 
 // html selectors
-const main = document.querySelector("main");
 const prevButton = document.querySelector('[data-js="button-prev"]');
 const nextButton = document.querySelector('[data-js="button-next"]');
 
 // States
-const maxPage = 1;
-const page = 1;
-const searchQuery = "";
 let fetchedData = await fetchData();
 
 // INITIAL RENDER OF CARDS
@@ -52,14 +48,13 @@ searchListener(searchForm, input, async (searchQuery) => {
 
   //Here we handle if there are no characters returned from the API
   if (searchData.error) {
-    console.log("IF search");
-
     searchError.textContent = searchData.error;
     searchContainer.append(searchError);
   } else {
     console.log("else", searchData.error);
-    // console.log('😸 SearchData',searchData); // or get the search results
     pageRender(searchData);
+    // to make the rest of the code, aka the page buttons,  work with the new data:
+    fetchedData = searchData;
   }
 });
 
@@ -69,7 +64,6 @@ searchListener(searchForm, input, async (searchQuery) => {
 // add pagination button functionality
 nextButton.addEventListener("click", async () => {
   //check if a search is happening
-  if (searchData) fetchedData = searchData;
   return (fetchedData = await pageRender(null, fetchedData.info.next));
 });
 
