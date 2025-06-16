@@ -1,6 +1,6 @@
 //////////////////////
 // Imports
-import { pageRender } from "./components/NavPagination/NavPagination.js";
+import { pageRender } from "./components/pageRender/pageRender.js";
 import { fetchData } from "./components/Fetch/fetch.js";
 import { createSearchForm } from "./components/SearchBar/SearchBar.js";
 
