@@ -36,7 +36,7 @@ let searchData;
 const { searchForm, input } = createSearchForm(searchContainer);
 
 //This the listener for the search form
-searchListener(searchForm, input, async (searchQuery) => {
+searchListener(searchForm, input, async searchQuery => {
   if (!searchQuery) return;
   console.log("listener");
 
@@ -51,7 +51,7 @@ searchListener(searchForm, input, async (searchQuery) => {
     searchError.textContent = searchData.error;
     searchContainer.append(searchError);
   } else {
-    console.log("else", searchData.error);
+    searchError.remove();
     pageRender(searchData, null, searchData);
     // to make the rest of the code, aka the page buttons,  work with the new data:
     fetchedData = searchData;
@@ -64,10 +64,15 @@ searchListener(searchForm, input, async (searchQuery) => {
 // add pagination button functionality
 nextButton.addEventListener("click", async () => {
   //check if a search is happening
-  return (fetchedData = await pageRender(null, fetchedData.info.next, fetchedData));
+  return (fetchedData = await pageRender(
+    null,
+    fetchedData.info.next,
+    fetchedData
+  ));
 });
 
 prevButton.addEventListener(
   "click",
-  async () => (fetchedData = await pageRender(null, fetchedData.info.prev, fetchedData))
+  async () =>
+    (fetchedData = await pageRender(null, fetchedData.info.prev, fetchedData))
 );
