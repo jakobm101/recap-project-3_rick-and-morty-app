@@ -23,13 +23,7 @@ export const fakeData = {
   created: "2017-11-04T18:50:21.651Z",
 };
 
-export function createCharacterCard({
-  image,
-  name,
-  status,
-  type,
-  episode,
-}) {
+export function createCharacterCard({ image, name, status, type, episode }) {
   const Card = document.createElement("li");
   Card.classList.add("card");
   Card.innerHTML = `
@@ -59,9 +53,9 @@ export function createCharacterCard({
 
 export default function createCards(fetchedData) {
   let cards = document.createElement("ul");
-  cards.classList = 'card-container'
-  cards.setAttribute('data-js', 'card-container')
-      //<ul class="card-container" data-js="card-container"></ul>
+  cards.classList = "card-container";
+  cards.setAttribute("data-js", "card-container");
+  //<ul class="card-container" data-js="card-container"></ul>
   for (const person of fetchedData) cards.append(createCharacterCard(person));
   return cards;
 }
