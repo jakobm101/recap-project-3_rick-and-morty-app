@@ -1,6 +1,8 @@
 export const URL = `https://rickandmortyapi.com/api/character`;
 
 export const fetchData = async (newURL = URL) => {
+  console.log('fetch', newURL);
+  
   try {
     const response = await fetch(newURL);
     
