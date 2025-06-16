@@ -56,6 +56,7 @@ export default function createCards(fetchedData) {
   cards.classList = "card-container";
   cards.setAttribute("data-js", "card-container");
   //<ul class="card-container" data-js="card-container"></ul>
-  for (const person of fetchedData) cards.append(createCharacterCard(person));
+  for (const person of fetchedData.results)
+    cards.append(createCharacterCard(person));
   return cards;
 }
