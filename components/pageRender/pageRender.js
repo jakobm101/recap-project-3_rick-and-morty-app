@@ -15,7 +15,7 @@ export const pageRender = async (currentData, isSearch, prevOrNext) => {
   let data = isSearch ? currentData : await fetchData(pageToRender);
 
   //create cards and update related components
-  if (typeof data === "object") {
+  if (data.results) {
     main.innerHTML = "";
     main.append(createCards(data.results));
 
