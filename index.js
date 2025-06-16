@@ -1,6 +1,6 @@
 //////////////////////
 // Imports
-import { pageRender } from "./components/NavPagination/NavPagination.js";
+import { pageRender } from "./components/pageRender/pageRender.js";
 import { fetchData } from "./components/Fetch/fetch.js";
 import { createSearchForm } from "./components/SearchBar/SearchBar.js";
 
@@ -33,7 +33,7 @@ const { searchForm, input, resetButton } = createSearchForm(searchContainer);
 let searchData;
 
 //This the listener for the search form
-searchForm.addEventListener("submit", async event => {
+searchForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   let searchQuery = input.value;
   input.value = "";
@@ -52,14 +52,14 @@ searchForm.addEventListener("submit", async event => {
     searchContainer.append(searchError);
   } else {
     searchError.remove();
-    pageRender(searchData, null, searchData);
+    pageRender(searchData, "is search");
     // to make the rest of the code, aka the page buttons,  work with the new data:
     fetchedData = searchData;
   }
 });
 
 // Add reset button listener
-resetButton.addEventListener("click", async event => {
+resetButton.addEventListener("click", async (event) => {
   event.preventDefault(); // Prevent default button behavior
 
   // Clear input and remove error if it exists
@@ -68,7 +68,8 @@ resetButton.addEventListener("click", async event => {
 
   // Fetch and show the full character list again
   searchData = await fetchData(`https://rickandmortyapi.com/api/character/`);
-  pageRender(searchData, null, searchData);
+
+  pageRender(searchData, "is search");
   fetchedData = searchData;
 });
 
@@ -78,15 +79,10 @@ resetButton.addEventListener("click", async event => {
 // add pagination button functionality
 nextButton.addEventListener("click", async () => {
   //check if a search is happening
-  return (fetchedData = await pageRender(
-    null,
-    fetchedData.info.next,
-    fetchedData
-  ));
+  return (fetchedData = await pageRender(fetchedData, false, "next"));
 });
 
 prevButton.addEventListener(
   "click",
-  async () =>
-    (fetchedData = await pageRender(null, fetchedData.info.prev, fetchedData))
+  async () => (fetchedData = await pageRender(fetchedData, false, "prev"))
 );
