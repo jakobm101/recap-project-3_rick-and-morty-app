@@ -49,7 +49,8 @@ searchListener(searchForm, input, async (searchQuery) => {
     searchError.textContent = searchData.message;
     searchContainer.append(searchError);
   } else {
-    console.log(searchData); // or get the search results
+    console.log('😸 SearchData',searchData); // or get the search results
+    pageRender(searchData)
   }
 });
 
@@ -62,9 +63,9 @@ pageRender();
 // add button functionality
 nextButton.addEventListener(
   "click",
-  async () => (fetchedData = await pageRender(fetchedData.info.next))
+  async () => (fetchedData = await pageRender(null, fetchedData.info.next))
 );
 prevButton.addEventListener(
   "click",
-  async () => (fetchedData = await pageRender(fetchedData.info.prev))
+  async () => (fetchedData = await pageRender(null, fetchedData.info.prev))
 );
