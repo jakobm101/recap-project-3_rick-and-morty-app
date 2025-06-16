@@ -52,7 +52,7 @@ searchForm.addEventListener("submit", async (event) => {
     searchContainer.append(searchError);
   } else {
     searchError.remove();
-    pageRender(searchData, null, searchData);
+    pageRender(searchData, "is search");
     // to make the rest of the code, aka the page buttons,  work with the new data:
     fetchedData = searchData;
   }
@@ -68,7 +68,8 @@ resetButton.addEventListener("click", async (event) => {
 
   // Fetch and show the full character list again
   searchData = await fetchData(`https://rickandmortyapi.com/api/character/`);
-  pageRender(searchData, null, searchData);
+
+  pageRender(searchData, "is search");
   fetchedData = searchData;
 });
 
@@ -78,10 +79,10 @@ resetButton.addEventListener("click", async (event) => {
 // add pagination button functionality
 nextButton.addEventListener("click", async () => {
   //check if a search is happening
-  return (fetchedData = await pageRender(null, null, fetchedData, "next"));
+  return (fetchedData = await pageRender(fetchedData, false, "next"));
 });
 
 prevButton.addEventListener(
   "click",
-  async () => (fetchedData = await pageRender(null, null, fetchedData, "prev"))
+  async () => (fetchedData = await pageRender(fetchedData, false, "prev"))
 );

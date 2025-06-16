@@ -5,20 +5,18 @@ const main = document.querySelector("main");
 const prevButton = document.querySelector('[data-js="button-prev"]');
 const nextButton = document.querySelector('[data-js="button-next"]');
 
-export const pageRender = async (
-  data = null,
-  pageToRender = URL,
-  currentData,
-  prevOrNext
-) => {
+export const pageRender = async (currentData, isSearch, prevOrNext) => {
   //check if next or previous page should be rendered
+  let pageToRender = URL;
   if (prevOrNext === "next") pageToRender = currentData.info.next;
   if (prevOrNext === "prev") pageToRender = currentData.info.prev;
 
   // fetch data if no data received
   let fetching;
-  if (!data && pageToRender) fetching = await fetchData(pageToRender);
-  if (data) fetching = data;
+  if (!isSearch && pageToRender) fetching = await fetchData(pageToRender);
+  if (isSearch) {
+    fetching = currentData;
+  }
 
   //create cards
   if (typeof fetching === "object") {
@@ -37,6 +35,7 @@ export const pageRender = async (
     const match = pageToRender?.match(/[?&]page=(\d+)/);
     const currentPage = match ? parseInt(match[1]) : 1;
     pagination.textContent = `${currentPage}／${fetching.info.pages}`;
+
     // RETURN
     return fetching;
   }
