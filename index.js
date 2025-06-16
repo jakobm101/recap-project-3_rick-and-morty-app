@@ -43,7 +43,7 @@ const { searchForm, input } = createSearchForm(searchContainer);
 searchListener(searchForm, input, async (searchQuery) => {
   if (!searchQuery) return;
   console.log("listener");
-  
+
   searchData = await fetchData(
     `https://rickandmortyapi.com/api/character/?name=${encodeURIComponent(
       searchQuery
@@ -53,26 +53,26 @@ searchListener(searchForm, input, async (searchQuery) => {
   //Here we handle if there are no characters returned from the API
   if (searchData.error) {
     console.log("IF search");
-    
+
     searchError.textContent = searchData.error;
     searchContainer.append(searchError);
   } else {
     console.log("else", searchData.error);
     // console.log('😸 SearchData',searchData); // or get the search results
-    pageRender(searchData)
+    pageRender(searchData);
   }
 });
 
 //////////////////////
 // PAGINATION
 
+// add pagination button functionality
+nextButton.addEventListener("click", async () => {
+  //check if a search is happening
+  if (searchData) fetchedData = searchData;
+  return (fetchedData = await pageRender(null, fetchedData.info.next));
+});
 
-
-// add button functionality
-nextButton.addEventListener(
-  "click",
-  async () => (fetchedData = await pageRender(null, fetchedData.info.next))
-);
 prevButton.addEventListener(
   "click",
   async () => (fetchedData = await pageRender(null, fetchedData.info.prev))
