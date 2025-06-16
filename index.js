@@ -1,6 +1,6 @@
 //////////////////////
 // Imports
-import { pageTurn } from "./components/NavPagination/NavPagination.js";
+import { pageRender } from "./components/NavPagination/NavPagination.js";
 import { fetchData } from "./components/Fetch/fetch.js";
 import {
   createSearchForm,
@@ -21,6 +21,10 @@ const page = 1;
 const searchQuery = "";
 let fetchedData = await fetchData();
 
+// INITIAL RENDER OF CARDS
+// initialize pagination and cards
+pageRender();
+
 //////////////////////
 // Search
 
@@ -36,8 +40,10 @@ let searchData;
 const { searchForm, input } = createSearchForm(searchContainer);
 
 //This the listener for the search form
-searchListener(searchForm, input, async searchQuery => {
+searchListener(searchForm, input, async (searchQuery) => {
   if (!searchQuery) return;
+  console.log("listener");
+  
   searchData = await fetchData(
     `https://rickandmortyapi.com/api/character/?name=${encodeURIComponent(
       searchQuery
@@ -45,26 +51,29 @@ searchListener(searchForm, input, async searchQuery => {
   );
 
   //Here we handle if there are no characters returned from the API
-  if (searchData.name === "Error") {
-    searchError.textContent = searchData.message;
+  if (searchData.error) {
+    console.log("IF search");
+    
+    searchError.textContent = searchData.error;
     searchContainer.append(searchError);
   } else {
-    console.log(searchData); // or get the search results
+    console.log("else", searchData.error);
+    // console.log('😸 SearchData',searchData); // or get the search results
+    pageRender(searchData)
   }
 });
 
 //////////////////////
-// PAGINATION 
+// PAGINATION
 
-// initialize pagination and cards
-pageTurn();
+
 
 // add button functionality
 nextButton.addEventListener(
   "click",
-  async () => (fetchedData = await pageTurn(fetchedData.info.next))
+  async () => (fetchedData = await pageRender(null, fetchedData.info.next))
 );
 prevButton.addEventListener(
   "click",
-  async () => (fetchedData = await pageTurn(fetchedData.info.prev))
+  async () => (fetchedData = await pageRender(null, fetchedData.info.prev))
 );
