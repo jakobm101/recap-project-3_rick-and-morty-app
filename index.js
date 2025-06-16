@@ -83,6 +83,5 @@ nextButton.addEventListener("click", async () => {
 
 prevButton.addEventListener(
   "click",
-  async () =>
-    (fetchedData = await pageRender(null, fetchedData.info.prev, fetchedData))
+  async () => (fetchedData = await pageRender(null, null, fetchedData, "prev"))
 );
