@@ -1,6 +1,6 @@
 //////////////////////
 // Imports
-import { pageTurn } from "./components/NavPagination/NavPagination.js";
+import { pageRender } from "./components/NavPagination/NavPagination.js";
 import { fetchData } from "./components/Fetch/fetch.js";
 import {
   createSearchForm,
@@ -36,7 +36,7 @@ let searchData;
 const { searchForm, input } = createSearchForm(searchContainer);
 
 //This the listener for the search form
-searchListener(searchForm, input, async searchQuery => {
+searchListener(searchForm, input, async (searchQuery) => {
   if (!searchQuery) return;
   searchData = await fetchData(
     `https://rickandmortyapi.com/api/character/?name=${encodeURIComponent(
@@ -54,17 +54,17 @@ searchListener(searchForm, input, async searchQuery => {
 });
 
 //////////////////////
-// PAGINATION 
+// PAGINATION
 
 // initialize pagination and cards
-pageTurn();
+pageRender();
 
 // add button functionality
 nextButton.addEventListener(
   "click",
-  async () => (fetchedData = await pageTurn(fetchedData.info.next))
+  async () => (fetchedData = await pageRender(fetchedData.info.next))
 );
 prevButton.addEventListener(
   "click",
-  async () => (fetchedData = await pageTurn(fetchedData.info.prev))
+  async () => (fetchedData = await pageRender(fetchedData.info.prev))
 );
