@@ -1,0 +1,6 @@
+- [ ] prettier on jakob vsc spiced
+- [x] anastasia commit: rework
+- [ ] search style
+- [ ] search pagination: page turns for search
+- [ ] disappearing "nothing found message" / search
+- [ ] buttons style: disabled
