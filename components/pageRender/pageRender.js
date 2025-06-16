@@ -8,10 +8,22 @@ const nextButton = document.querySelector('[data-js="button-next"]');
 
 export const pageRender = async (importedData, isSearch, prevOrNext) => {
   //check if next or previous page should be rendered
-  let pageToRender = startPage; // initial case
-  if (prevOrNext === "next") pageToRender = importedData.info.next;
-  if (prevOrNext === "prev") pageToRender = importedData.info.prev;
-  if (prevOrNext !== "next" && prevOrNext !== "prev" && prevOrNext) log.error("wrong input");
+  let pageToRender = startPage;
+  switch (prevOrNext) {
+    case undefined:
+      pageToRender = startPage;
+      break;
+    case "next":
+      pageToRender = importedData.info.next;
+      break;
+    case "prev":
+      pageToRender = importedData.info.prev;
+      break;
+    default:
+      console.error(
+        "wrong parameter for pageRender. Expecting undefined, next or prev."
+      );
+  }
 
   // fetch data if not searching
   let data = isSearch ? importedData : await fetchData(pageToRender);
