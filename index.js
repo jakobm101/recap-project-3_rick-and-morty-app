@@ -52,7 +52,7 @@ searchListener(searchForm, input, async (searchQuery) => {
     searchContainer.append(searchError);
   } else {
     console.log("else", searchData.error);
-    pageRender(searchData);
+    pageRender(searchData, null, searchData);
     // to make the rest of the code, aka the page buttons,  work with the new data:
     fetchedData = searchData;
   }
@@ -64,10 +64,10 @@ searchListener(searchForm, input, async (searchQuery) => {
 // add pagination button functionality
 nextButton.addEventListener("click", async () => {
   //check if a search is happening
-  return (fetchedData = await pageRender(null, fetchedData.info.next));
+  return (fetchedData = await pageRender(null, fetchedData.info.next, fetchedData));
 });
 
 prevButton.addEventListener(
   "click",
-  async () => (fetchedData = await pageRender(null, fetchedData.info.prev))
+  async () => (fetchedData = await pageRender(null, fetchedData.info.prev, fetchedData))
 );
