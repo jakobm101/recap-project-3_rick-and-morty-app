@@ -15,25 +15,17 @@ export const pageRender = async (currentData, isSearch, prevOrNext) => {
   let data = isSearch ? currentData : await fetchData(pageToRender);
 
   //create cards and update related components
-  if (data.results) {
-    main.innerHTML = "";
-    main.append(createCards(data.results));
+  main.innerHTML = "";
+  main.append(createCards(data.results));
 
-    // Disable Buttons if no next or previous page available
-    data.info.prev
-      ? (prevButton.disabled = false)
-      : (prevButton.disabled = true);
-    data.info.next
-      ? (nextButton.disabled = false)
-      : (nextButton.disabled = true);
+  // Disable Buttons if no next or previous page available
+  data.info.prev ? (prevButton.disabled = false) : (prevButton.disabled = true);
+  data.info.next ? (nextButton.disabled = false) : (nextButton.disabled = true);
 
-    // update Page numbers
-    const urlPage = new URL(pageToRender).searchParams?.get('page')
-    pagination.textContent = `${urlPage ?? 1}／${data.info.pages}`;
+  // update Page numbers
+  const urlPage = new URL(pageToRender).searchParams?.get("page");
+  pagination.textContent = `${urlPage ?? 1}／${data.info.pages}`;
 
-    // RETURN
-    return data;
-  }
-  // Return previous data if not updating page, so index functions keep the state
-  return currentData;
+  // RETURN
+  return data;
 };
