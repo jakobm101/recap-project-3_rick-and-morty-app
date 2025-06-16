@@ -1,4 +1,4 @@
-import { fetchData, URL as link } from "../Fetch/fetch.js";
+import { fetchData, URL as startPage } from "../Fetch/fetch.js";
 import createCards from "../CharacterCard/CharacterCard.js";
 const pagination = document.querySelector('[data-js="pagination"]');
 const main = document.querySelector("main");
@@ -7,7 +7,7 @@ const nextButton = document.querySelector('[data-js="button-next"]');
 
 export const pageRender = async (currentData, isSearch, prevOrNext) => {
   //check if next or previous page should be rendered
-  let pageToRender = link; // initial case
+  let pageToRender = startPage; // initial case
   if (prevOrNext === "next") pageToRender = currentData.info.next;
   if (prevOrNext === "prev") pageToRender = currentData.info.prev;
 
