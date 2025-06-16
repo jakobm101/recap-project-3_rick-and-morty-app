@@ -33,7 +33,7 @@ const { searchForm, input, resetButton } = createSearchForm(searchContainer);
 let searchData;
 
 //This the listener for the search form
-searchForm.addEventListener("submit", async event => {
+searchForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   let searchQuery = input.value;
   input.value = "";
@@ -59,7 +59,7 @@ searchForm.addEventListener("submit", async event => {
 });
 
 // Add reset button listener
-resetButton.addEventListener("click", async event => {
+resetButton.addEventListener("click", async (event) => {
   event.preventDefault(); // Prevent default button behavior
 
   // Clear input and remove error if it exists
@@ -78,11 +78,7 @@ resetButton.addEventListener("click", async event => {
 // add pagination button functionality
 nextButton.addEventListener("click", async () => {
   //check if a search is happening
-  return (fetchedData = await pageRender(
-    null,
-    fetchedData.info.next,
-    fetchedData
-  ));
+  return (fetchedData = await pageRender(null, null, fetchedData, "next"));
 });
 
 prevButton.addEventListener(
