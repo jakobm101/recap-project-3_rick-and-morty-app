@@ -2,6 +2,9 @@ import { fetchData, URL } from "../Fetch/fetch.js";
 import createCards from "../CharacterCard/CharacterCard.js";
 const pagination = document.querySelector('[data-js="pagination"]');
 const main = document.querySelector("main");
+const prevButton = document.querySelector('[data-js="button-prev"]');
+const nextButton = document.querySelector('[data-js="button-next"]');
+
 
 export const pageRender = async (data = null, pageToRender = URL, oldData) => {
   // data is coming from search in index.js and fetches there
@@ -17,12 +20,18 @@ export const pageRender = async (data = null, pageToRender = URL, oldData) => {
   // if (!data && typeof fetching !== "object") fetching = await fetchData();
   // if (!data && typeof fetching !== "object") return main.innerHTML;
   if (data) fetching = data;
-  console.log("pagerender fetching", fetching);
   
   if (typeof fetching === "object") {
     main.innerHTML = "";
     main.append(createCards(fetching.results));
+
+    // Disable Buttons
+    fetching.info.prev ? prevButton.disabled = false : prevButton.disabled = true;
+    fetching.info.next ? nextButton.disabled = false : nextButton.disabled = true;
+    
+    // Page numbers 
     pagination.textContent = `${currentPage}／${fetching.info.pages}`;
+    // RETURN
     return fetching;
   } return oldData
 };
