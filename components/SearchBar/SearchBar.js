@@ -30,5 +30,6 @@ export const searchListener = async (searchForm, input, callBackFunction) => {
   searchForm.addEventListener("submit", event => {
     event.preventDefault();
     callBackFunction(input.value);
+    input.value = "";
   });
 };
