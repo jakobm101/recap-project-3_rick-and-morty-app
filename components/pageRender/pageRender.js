@@ -14,7 +14,7 @@ export const pageRender = async (currentData, isSearch, prevOrNext) => {
   // fetch data if not searching
   let data = isSearch ? currentData : await fetchData(pageToRender);
 
-  //create cards
+  //create cards and update related components
   if (typeof data === "object") {
     main.innerHTML = "";
     main.append(createCards(data.results));
@@ -27,9 +27,8 @@ export const pageRender = async (currentData, isSearch, prevOrNext) => {
       ? (nextButton.disabled = false)
       : (nextButton.disabled = true);
 
-    // insert Page numbers
+    // update Page numbers
     const urlPage = new URL(pageToRender).searchParams?.get('page')
-    
     pagination.textContent = `${urlPage ?? 1}／${data.info.pages}`;
 
     // RETURN
