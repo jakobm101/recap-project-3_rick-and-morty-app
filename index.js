@@ -49,7 +49,7 @@ searchListener(searchForm, input, async (searchQuery) => {
     searchError.textContent = searchData.message;
     searchContainer.append(searchError);
   } else {
-    console.log('😸 SearchData',searchData); // or get the search results
+    // console.log('😸 SearchData',searchData); // or get the search results
     pageRender(searchData)
   }
 });
