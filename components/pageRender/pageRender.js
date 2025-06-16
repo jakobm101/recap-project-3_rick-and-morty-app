@@ -11,24 +11,21 @@ export const pageRender = async (
   currentData,
   prevOrNext
 ) => {
+  //check if next or previous page should be rendered
   if (prevOrNext === "next") pageToRender = currentData.info.next;
   if (prevOrNext === "prev") pageToRender = currentData.info.prev;
-  const match = pageToRender?.match(/[?&]page=(\d+)/);
-  const currentPage = match ? parseInt(match[1]) : 1;
 
+  // fetch data if no data received
   let fetching;
   if (!data && pageToRender) fetching = await fetchData(pageToRender);
-
-  // fallback if the new page does not exist: create page one
-  // if (!data && typeof fetching !== "object") fetching = await fetchData();
-  // if (!data && typeof fetching !== "object") return main.innerHTML;
   if (data) fetching = data;
 
+  //create cards
   if (typeof fetching === "object") {
     main.innerHTML = "";
     main.append(createCards(fetching.results));
 
-    // Disable Buttons
+    // Disable Buttons if no next or previous page available
     fetching.info.prev
       ? (prevButton.disabled = false)
       : (prevButton.disabled = true);
@@ -36,7 +33,9 @@ export const pageRender = async (
       ? (nextButton.disabled = false)
       : (nextButton.disabled = true);
 
-    // Page numbers
+    // insert Page numbers
+    const match = pageToRender?.match(/[?&]page=(\d+)/);
+    const currentPage = match ? parseInt(match[1]) : 1;
     pagination.textContent = `${currentPage}／${fetching.info.pages}`;
     // RETURN
     return fetching;
