@@ -1,6 +1,6 @@
 # primary
 - [ ] search 
-  - [ ] search style
+  - [x] search style
   - [ ] search pagination: page turns for search
   - [ ] disappearing "nothing found message" / search
 
