@@ -1,5 +1,6 @@
 import { fetchData, URL as startPage } from "../Fetch/fetch.js";
 import createCards from "../CharacterCard/CharacterCard.js";
+
 const pagination = document.querySelector('[data-js="pagination"]');
 const main = document.querySelector("main");
 const prevButton = document.querySelector('[data-js="button-prev"]');
@@ -23,9 +24,9 @@ export const pageRender = async (importedData, isSearch, prevOrNext) => {
   data.info.prev ? (prevButton.disabled = false) : (prevButton.disabled = true);
   data.info.next ? (nextButton.disabled = false) : (nextButton.disabled = true);
 
-  // update Page numbers
-  const urlPage = new URL(pageToRender).searchParams?.get("page");
-  pagination.textContent = `${urlPage ?? 1}／${data.info.pages}`;
+  // update Page numbers   n/n
+  const pageNumber = new URL(pageToRender).searchParams?.get("page");
+  pagination.textContent = `${pageNumber ?? 1}／${data.info.pages}`;
 
   // RETURN state
   return data;
